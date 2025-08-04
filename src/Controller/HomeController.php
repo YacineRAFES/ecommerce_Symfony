@@ -10,12 +10,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class HomeController extends AbstractController
 {
-    #[Route('/', name: 'home')]
+    #[Route(['/', '/home'], name: 'home')]
     public function index(Request $request, CategoryRepository $category): Response
     {
         $categories = $category->findAll();
         return $this->render('home/index.html.twig', [
-                'categories' => $categories,
-            ]);
+            'categories' => $categories,
+        ]);
     }
 }

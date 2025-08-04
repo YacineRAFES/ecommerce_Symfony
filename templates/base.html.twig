@@ -19,17 +19,17 @@
             <div class="container-fluid d-flex justify-content-center align-items-center gap-3">
                 
                 <!-- Titre centré -->
-                <a class="navbar-brand m-0" href="#">Shop Periph PC</a>
+                <a class="navbar-brand m-0" href="/home">Shop Periph PC</a>
 
                 <!-- Liens de navigation -->
                 <div class="navbar-nav d-flex flex-row gap-3 ">
                     <a class="nav-link" href="{{ url('home') }}">Accueil</a>
-                    <a class="nav-link" href="#">Ecran</a>
-                    <a class="nav-link" href="#">Clavier</a>
-                    <a class="nav-link" href="#">Souris</a>
-                    <a class="nav-link" href="#">Casque & Micro</a>
-                    <a class="nav-link" href="#">Imprimante</a>
-                    <a class="nav-link" href="#">Accessoire PC</a>
+                    
+                    {% for categorie in categories %}
+                        <a class="nav-link" href="{{ path('category', { id: categorie.id }) }}">
+                            {{ categorie.name }}
+                        </a>
+                    {% endfor %}
                 </div>
             </div>
         </nav>
@@ -48,27 +48,11 @@
                     <div class="col-3">
                         <h5>Catégories</h5>
                         <ul class="nav flex-column">
+                        {% for categorie in categories %}
                             <li>
-                                <a href="#" class="nav-link">Accueil</a>
+                                <a href="category/{{ categorie.getId() }}" class="nav-link">{{ categorie.getName() }}</a>
                             </li>
-                            <li>
-                                <a href="#" class="nav-link">Écran PC</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link">Clavier</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link">Souris</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link">Casque & Micro</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link">Imprimante</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link">Accessoire PC</a>
-                            </li>
+                        {% endfor %}
                         </ul>
                     </div>
                     <div class="col-3">

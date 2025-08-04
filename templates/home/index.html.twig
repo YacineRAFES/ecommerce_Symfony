@@ -35,16 +35,12 @@
         <h3 class="text-uppercase text-center my-3">les Catégories</h3>
 
         <!-- Catégories -->
-        <div class="row row-cols-5 ">
+        <div class="row row-cols-5 d-flex justify-content-center">
         {% for categorie in categories %}
-            <a href="#" class="col border border-2 border-primary rounded m-2 p-5 text-decoration-none text-dark">
+            <a href="category/{{ categorie.getId() }}" class="col border border-2 border-primary rounded m-2 p-5 text-decoration-none text-dark">
                 <h4 class="text-center">{{ categorie.getName() }}</h4>
             </a>
-            
         {% endfor %}
         </div>
-
-
-
     </div>
 {% endblock %}
