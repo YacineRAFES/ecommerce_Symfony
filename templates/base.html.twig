@@ -13,15 +13,16 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body>
-        <nav class="navbar bg-info text-white">
+    <body class="d-flex flex-column min-vh-100">
+    <header>
+        <nav class="navbar bg-primary" data-bs-theme="dark">
             <div class="container-fluid d-flex justify-content-center align-items-center gap-3">
                 
                 <!-- Titre centré -->
                 <a class="navbar-brand m-0" href="#">Shop Periph PC</a>
 
                 <!-- Liens de navigation -->
-                <div class="navbar-nav d-flex flex-row gap-3">
+                <div class="navbar-nav d-flex flex-row gap-3 ">
                     <a class="nav-link" href="{{ url('home') }}">Accueil</a>
                     <a class="nav-link" href="#">Ecran</a>
                     <a class="nav-link" href="#">Clavier</a>
@@ -29,13 +30,62 @@
                     <a class="nav-link" href="#">Casque & Micro</a>
                     <a class="nav-link" href="#">Imprimante</a>
                     <a class="nav-link" href="#">Accessoire PC</a>
-                    <a class="nav-link" href="#">Contact</a>
-
                 </div>
             </div>
         </nav>
-        <div class="container">
-            {% block body %}{% endblock %}
+    </header>
+    <div class="container">
+        {% block body %}{% endblock %}
+    </div>
+    <footer class="mt-auto">
+        <div class="container-fluid bg-primary text-white pt-3 text-center" data-bs-theme="dark">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <h5>Shop Periph PC</h5>
+
+                    </div>
+                    <div class="col-3">
+                        <h5>Catégories</h5>
+                        <ul class="nav flex-column">
+                            <li>
+                                <a href="#" class="nav-link">Accueil</a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link">Écran PC</a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link">Clavier</a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link">Souris</a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link">Casque & Micro</a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link">Imprimante</a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link">Accessoire PC</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-3">
+                        <h5>Liens utiles</h5>
+                        <ul class="nav flex-column">
+                            <li>
+                                <a href="#" class="nav-link">Compte</a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link">Connexion</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
+    </footer>
+
     </body>
 </html>
