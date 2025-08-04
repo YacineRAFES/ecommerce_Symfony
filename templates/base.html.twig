@@ -14,24 +14,28 @@
         {% endblock %}
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg bg-info text-white">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Navbar</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse container" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                        <a class="nav-link" href="{{ url('home') }}">Accueil</a>
-                        <a class="nav-link" href="#">Features</a>
-                        <a class="nav-link" href="#">Pricing</a>
-                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                    </div>
+        <nav class="navbar bg-info text-white">
+            <div class="container-fluid d-flex justify-content-center align-items-center gap-3">
+                
+                <!-- Titre centré -->
+                <a class="navbar-brand m-0" href="#">Shop Periph PC</a>
+
+                <!-- Liens de navigation -->
+                <div class="navbar-nav d-flex flex-row gap-3">
+                    <a class="nav-link" href="{{ url('home') }}">Accueil</a>
+                    <a class="nav-link" href="#">Ecran</a>
+                    <a class="nav-link" href="#">Clavier</a>
+                    <a class="nav-link" href="#">Souris</a>
+                    <a class="nav-link" href="#">Casque & Micro</a>
+                    <a class="nav-link" href="#">Imprimante</a>
+                    <a class="nav-link" href="#">Accessoire PC</a>
+                    <a class="nav-link" href="#">Contact</a>
+
                 </div>
             </div>
         </nav>
-        
-
-        {% block body %}{% endblock %}
+        <div class="container">
+            {% block body %}{% endblock %}
+        </div>
     </body>
 </html>
