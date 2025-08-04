@@ -3,5 +3,48 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %} 
-    <p>bonjour</p>
+    <div>
+        <!-- Titre -->
+        <h3 class="text-uppercase text-center my-3">les articles en promotion</h3>
+        
+        <!-- Carousel -->
+        <div id="carouselExampleInterval" class="carousel slide w-50 mx-auto" data-bs-ride="carousel">
+            <div class="carousel-inner ">
+                <div class="carousel-item active">
+                <img src="https://wallpapercave.com/wp/wp1845166.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                <img src="https://wallpapercave.com/wp/wp1845166.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                <img src="https://wallpapercave.com/wp/wp1845166.jpg" class="d-block w-100" alt="...">
+                </div>
+            </div>
+            
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        
+        <!-- Titre -->
+        <h3 class="text-uppercase text-center my-3">les Catégories</h3>
+
+        <!-- Catégories -->
+        <div class="row row-cols-5 ">
+        {% for categorie in categories %}
+            <a href="#" class="col border border-2 border-primary rounded m-2 p-5 text-decoration-none text-dark">
+                <h4 class="text-center">{{ categorie.getName() }}</h4>
+            </a>
+            
+        {% endfor %}
+        </div>
+
+
+
+    </div>
 {% endblock %}
