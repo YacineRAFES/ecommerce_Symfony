@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
+use App\Repository\ImagesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,7 +13,12 @@ use Symfony\Component\Routing\Attribute\Route;
 final class CategoryController extends AbstractController
 {
     #[Route('/category/{id}', name: 'category')]
-    public function index(int $id, Request $request, CategoryRepository $categoryRepository): Response
+    public function index(
+        int $id, 
+        Request $request, 
+        CategoryRepository $categoryRepository,
+        ImagesRepository $imagesRepository
+        ): Response
     {
 
         // Je récupère la catégorie depuis le CategoryRepository
@@ -27,11 +33,20 @@ final class CategoryController extends AbstractController
         $products = $category->getProducts();
         $categories = $categoryRepository->findAll();
 
+        // Tableaux des images principales indexées par ID de produit
+        $mainImages = [];
+
+        foreach ($products as $product) {
+            $mainImage = $imagesRepository->findMainImageByProduct($product);
+            $mainImages[$product->getId()] = $mainImage;
+        }
+
         // Je rends la vue avec les produits
         return $this->render('category/show.html.twig', [
-            'categories' => $categories,
-            'category' => $category,
-            'products' => $products,
+        'categories' => $categories,
+        'category' => $category,
+        'products' => $products,
+        'mainImages' => $mainImages
         ]);
     }
 }
