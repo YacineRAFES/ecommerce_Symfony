@@ -15,8 +15,8 @@ final class CategoryController extends AbstractController
 {
     #[Route('/category/{id}', name: 'category')]
     public function index(
-        int $id, 
-        Request $request, 
+        int $id,
+        Request $request,
         CategoryRepository $categoryRepository,
         ImagesRepository $imagesRepository,
         ProductRepository $productRepository
@@ -32,21 +32,11 @@ final class CategoryController extends AbstractController
         }
 
         // Je récupère les produits liés à cette catégorie
-        $products = $productRepository->findAllProductsWithImageByCategory($id);
-        $categories = $categoryRepository->findAll();
-
-        // Tableaux des images principales indexées par ID de produit
-        $mainImages = [];
-
-        foreach ($products as $product) {
-            $mainImage = $imagesRepository->findMainImageByProduct($product);
-            $mainImages[$product->getId()] = $mainImage;
-        }
+        $products = $productRepository->findAllProductsWithImageByCategory($category->getId());
 
         // Je rends la vue avec les produits
         return $this->render('category/show.html.twig', [
-        'categories' => $categories,
-        'products' => $products
+            'products' => $products
         ]);
     }
 }
