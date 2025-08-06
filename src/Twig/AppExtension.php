@@ -6,7 +6,7 @@ use Twig\Extension\GlobalsInterface;
 use Twig\Extension\AbstractExtension;
 use App\Repository\CategoryRepository;
 
-// Pour utiliser les catégories dans les templates Twig
+// Pour utiliser les catégories dans tous les templates Twig
 class AppExtension extends AbstractExtension implements GlobalsInterface
 {
     private $categoryRepository;
