@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use App\Repository\ImagesRepository;
@@ -17,7 +18,8 @@ final class CategoryController extends AbstractController
         int $id, 
         Request $request, 
         CategoryRepository $categoryRepository,
-        ImagesRepository $imagesRepository
+        ImagesRepository $imagesRepository,
+        ProductRepository $productRepository
         ): Response
     {
 
@@ -30,7 +32,7 @@ final class CategoryController extends AbstractController
         }
 
         // Je récupère les produits liés à cette catégorie
-        $products = $category->getProducts();
+        $products = $productRepository->findAllProductsWithImageByCategory($id);
         $categories = $categoryRepository->findAll();
 
         // Tableaux des images principales indexées par ID de produit
@@ -44,9 +46,7 @@ final class CategoryController extends AbstractController
         // Je rends la vue avec les produits
         return $this->render('category/show.html.twig', [
         'categories' => $categories,
-        'category' => $category,
-        'products' => $products,
-        'mainImages' => $mainImages
+        'products' => $products
         ]);
     }
 }

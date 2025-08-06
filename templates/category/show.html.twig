@@ -1,9 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ category.getName() }}{% endblock %}
+{% set getIdCategory = app.request.requesturi|split('/') %}
+{%  set nameCategorie = '' %}
+
+{% for categorie in categories %}
+    {% if categorie.id == getIdCategory[2] %}
+        {% set nameCategorie =  categorie.name %}
+    {% endif %}
+{% endfor %}
+
+{% block title %}{{ nameCategorie }}{% endblock %}
 
 {% block body %} 
-    <h3 class="text-center m-3 text-uppercase">{{ category.getName() }}</h3>
+    <h3 class="text-center m-3 text-uppercase">
+        {{ nameCategorie }}
+    </h3>
 
     <!-- Les Produits -->
     <div class="row row-cols-5 d-flex justify-content-center">
@@ -11,20 +22,22 @@
         <p class="text-center">Aucun produit trouvé dans cette catégorie.</p>
     {% endif %}
     {% for product in products %}
-        <a href="products/{{ product.getId() }}" class="card h-100 text-decoration-none text-dark">
-            {% set mainImage = mainImages[product.id] ?? null %}
-            {% if mainImage %}
-            <img src="{{ asset('uploads/images/' ~ mainImage.file) }}" class="card-img-top" alt="{{ product.getName() }}">
-            {% else %}
+        {# TODO: La boucle à supprimer #}
+        {% for i in 0..10 %}
+            <a href="{{ path('product', { id: product.id }) }}" class="card h-100 text-decoration-none text-dark m-1">
+                {% if product.file %}
+                <img src="{{ asset('uploads/images/' ~ product.getFile() ) }}" class="card-img-top" alt="{{ product.getName() }}">
+                {% else %}
                 <p>Aucune image principale</p>
-            {% endif %}
-            <div class="card-body p-0">
-                <h5 class="card-title">{{ product.getName() }}</h5>
-                <p class="fs-4">
-                    {{ product.getPrice() | format_currency('EUR', {grouping_used:true}, 'fr') }}
-                </p>
-            </div>
-        </a>
+                {% endif %}
+                <div class="card-body p-0">
+                    <h5 class="card-title">{{ product.getName() }}</h5>
+                    <p class="fs-4 d-flex justify-content-end">
+                        {{ product.getPrice() | format_currency('EUR', {grouping_used:true}, 'fr') }}
+                    </p>
+                </div>
+            </a>
+        {% endfor %}
     {% endfor %}
     </div>
 
