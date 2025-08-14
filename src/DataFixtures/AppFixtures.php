@@ -29,18 +29,25 @@ class AppFixtures extends Fixture
 
         // $manager->persist($user);
 
-        // // Charger les catégories
-        // for ($i = 1; $i <= 5; $i++) {
-        //     $category = (new Category());
-        //     $category->setName('Category ' . $i);
-        //     $manager->persist($category);
-        // }
+        // Charger les catégories
+        $categories = [];
+        for ($i = 1; $i <= 5; $i++) {
+            $category = (new Category());
+            $category->setName('Category ' . $i);
+            $manager->persist($category);
+            $categories[] = $category;
+        }
 
-        // // Charger les produits (catégories_id 5 à 9, nom_produit, price, created_at)
+        // Charger les produits
         for ($i = 1; $i <= 5; $i++) {
             $product = (new Product());
-            $product->set
+            $product->setName('Product ' . $i)
+                ->setPrice(mt_rand(10, 100))
+                ->setCreatedAt(new \DateTimeImmutable())
+                ->setCategory($categories[array_rand($categories)]);
 
+            $manager->persist($product);
+        }
         $manager->flush();
 
     }
