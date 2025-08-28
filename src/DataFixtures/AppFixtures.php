@@ -7,6 +7,7 @@ use Doctrine\Persistence\ObjectManager;
 use App\Entity\User;
 use App\Entity\Category;
 use App\Entity\Product;
+use App\Entity\Images;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
@@ -34,6 +35,7 @@ class AppFixtures extends Fixture
         for ($i = 1; $i <= 5; $i++) {
             $category = (new Category());
             $category->setName('Category ' . $i);
+
             $manager->persist($category);
             $categories[] = $category;
         }
@@ -47,6 +49,17 @@ class AppFixtures extends Fixture
                 ->setCategory($categories[array_rand($categories)]);
 
             $manager->persist($product);
+            $products[] = $product;
+        }
+
+        //Charger les images
+        for ($i = 1; $i <= 5; $i++){
+            $image = (new Images());
+            $image->setFile('LD0005921519_1.jpg')
+                ->setProduct($products[array_rand($products)])
+                ->setMain(1);
+        
+            $manager->persist($image);
         }
         $manager->flush();
 
