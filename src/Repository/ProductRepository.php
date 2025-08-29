@@ -40,20 +40,4 @@ class ProductRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
-
-    /**
-     * Trouver tous les produits avec leur image principale par catégorie
-     * @return Product[]
-     */
-    public function findAllProductsWithImageByCategory(int $categoryId): array
-    {
-        return $this->createQueryBuilder('p')
-            ->innerJoin('p.images', 'i', 'WITH', 'i.main = :main')
-            ->addSelect('i')
-            ->where('p.category = :categoryId')
-            ->setParameter('categoryId', $categoryId)
-            ->setParameter('main', true)
-            ->getQuery()
-            ->getResult();
-    }
 }

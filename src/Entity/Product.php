@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
@@ -21,23 +19,14 @@ class Product
     #[ORM\Column]
     private ?float $price = null;
 
-    #[ORM\ManyToOne(inversedBy: 'products')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Category $category = null;
-
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    /**
-     * @var Collection<int, Images>
-     */
-    #[ORM\OneToMany(targetEntity: Images::class, mappedBy: 'product', orphanRemoval: true)]
-    private Collection $images;
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?images $images = null;
 
-    public function __construct()
-    {
-        $this->images = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(inversedBy: 'product')]
+    private ?category $category = null;
 
     public function getId(): ?int
     {
@@ -68,18 +57,6 @@ class Product
         return $this;
     }
 
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): static
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
@@ -92,46 +69,27 @@ class Product
         return $this;
     }
 
-    /**
-     * @return Collection<int, Images>
-     */
-    public function getImages(): Collection
+    public function getImages(): ?images
     {
         return $this->images;
     }
 
-    public function addImage(Images $image): static
+    public function setImages(?images $images): static
     {
-        if (!$this->images->contains($image)) {
-            $this->images->add($image);
-            $image->setProduct($this);
-        }
+        $this->images = $images;
 
         return $this;
     }
 
-    public function removeImage(Images $image): static
+    public function getCategory(): ?category
     {
-        if ($this->images->removeElement($image)) {
-            // set the owning side to null (unless already changed)
-            if ($image->getProduct() === $this) {
-                $image->setProduct(null);
-            }
-        }
-
-        return $this;
+        return $this->category;
     }
 
-    public function getFile(): ?string
+    public function setCategory(?category $category): static
     {
-        // Récupère la première image marquée comme principale
-        foreach ($this->images as $image) {
-            if ($image->isMain()) {
-                return $image->getFile();
-            }
-        }
+        $this->category = $category;
 
-        // Si aucune image principale, retourne la première disponible
-        return $this->images->first()?->getFile();
+        return $this;
     }
 }
