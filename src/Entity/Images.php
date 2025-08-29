@@ -32,4 +32,18 @@ class Images
 
         return $this;
     }
+
+    #[ORM\OneToOne(mappedBy: "image", targetEntity: Product::class)]
+    private ?Product $product = null;
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
+        return $this;
+    }
 }

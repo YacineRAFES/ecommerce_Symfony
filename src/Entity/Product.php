@@ -22,8 +22,9 @@ class Product
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?images $images = null;
+    #[ORM\OneToOne(inversedBy: "product", cascade: ["persist", "remove"])]
+    #[ORM\JoinColumn(name: "images_id", referencedColumnName: "id", nullable: false)]
+    private ?Images $image = null;
 
     #[ORM\ManyToOne(inversedBy: 'product')]
     private ?category $category = null;
@@ -69,14 +70,14 @@ class Product
         return $this;
     }
 
-    public function getImages(): ?images
+    public function getImage(): ?images
     {
         return $this->images;
     }
 
-    public function setImages(?images $images): static
+    public function setImage(?images $images): self
     {
-        $this->images = $images;
+        $this->image = $images;
 
         return $this;
     }

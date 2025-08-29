@@ -22,46 +22,39 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        // Charger les utilisateurs
-        // $user = (new User());
-        // $user->setEmail('admin@mail.com')
-        //     ->setPassword($this->passwordHasher->hashPassword($user, 'admin'))
-        //     ->setRoles(['ROLE_ADMIN']);
-
-        // $manager->persist($user);
-
-        // Charger les catégories
+        // Créer les catégories
         $categories = [];
         for ($i = 1; $i <= 5; $i++) {
-            $category = (new Category());
+            $category = new Category();
             $category->setName('Category ' . $i);
 
             $manager->persist($category);
             $categories[] = $category;
         }
 
-        // Charger les produits
+        // Créer les produits
         for ($i = 1; $i <= 5; $i++) {
-            $product = (new Product());
+            // Choisir une catégorie aléatoire
+            $category = $categories[array_rand($categories)];
+
+            $product = new Product();
             $product->setName('Product ' . $i)
-                ->setPrice(mt_rand(10, 100))
-                ->setCreatedAt(new \DateTimeImmutable())
-                ->setCategory($categories[array_rand($categories)]);
+                    ->setPrice(mt_rand(10, 100))
+                    ->setCreatedAt(new \DateTimeImmutable())
+                    ->setCategory($category);
+
+            // Créer une image pour ce produit
+            $image = new Images();
+            $image->setFile("LD0005921519_1.jpg");
+
+            // Lier l'image au produit
+            $product->setImage($image);
+            $image->setProduct($product);
 
             $manager->persist($product);
-            $products[] = $product;
-        }
-
-        //Charger les images
-        for ($i = 1; $i <= 5; $i++){
-            $image = (new Images());
-            $image->setFile('LD0005921519_1.jpg')
-                ->setProduct($products[array_rand($products)])
-                ->setMain(1);
-        
             $manager->persist($image);
         }
-        $manager->flush();
 
+        $manager->flush();
     }
 }
