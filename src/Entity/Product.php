@@ -29,6 +29,9 @@ class Product
     #[ORM\ManyToOne(inversedBy: 'product')]
     private ?category $category = null;
 
+    #[ORM\OneToOne(mappedBy: 'product', cascade: ['persist', 'remove'])]
+    private ?Description $description = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +93,23 @@ class Product
     public function setCategory(?category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getDescription(): ?Description
+    {
+        return $this->description;
+    }
+
+    public function setDescription(Description $description): static
+    {
+        // set the owning side of the relation if necessary
+        if ($description->getProduct() !== $this) {
+            $description->setProduct($this);
+        }
+
+        $this->description = $description;
 
         return $this;
     }

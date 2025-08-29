@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Entity\Category;
 use App\Entity\Product;
 use App\Entity\Images;
+use App\Entity\Description;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
@@ -33,6 +34,7 @@ class AppFixtures extends Fixture
         }
 
         // Créer les produits
+        $products = [];
         for ($i = 1; $i <= 5; $i++) {
             // Choisir une catégorie aléatoire
             $category = $categories[array_rand($categories)];
@@ -52,7 +54,23 @@ class AppFixtures extends Fixture
             $image->setProduct($product);
 
             $manager->persist($product);
+            $products[] = $product;
             $manager->persist($image);
+        }
+
+        // Créer les descriptions
+        foreach ($products as $product) {
+
+            $description = new Description();
+            $description->setText("Le moniteur Samsung S22D400GAU est conçu pour répondre à tous vos besoins essentiels, 
+                                    pour le travail ou le divertissement. Avec sa dalle IPS de 22 pouces avec résolution Full HD, 
+                                    il offre une image détaillée, lumineuse et riche en couleurs. Avec sa fréquence de 100 Hz et son mode jeu intégré, 
+                                    cet écran Samsung sera un compagnon de gaming fiable et abordable. 
+                                    Son pied ergonomique apporte aussi un meilleur confort d'utilisation.")
+                        ->setProduct($product);
+            
+            $manager->persist($description);
+
         }
 
         $manager->flush();
