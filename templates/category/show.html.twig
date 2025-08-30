@@ -25,8 +25,8 @@
         {# TODO: La boucle à supprimer #}
         {% for i in 0..10 %}
             <a href="{{ path('product', { id: product.id }) }}" class="card h-100 text-decoration-none text-dark m-1">
-                {% if product.file %}
-                <img src="{{ asset('uploads/images/' ~ product.getFile() ) }}" class="card-img-top" alt="{{ product.getName() }}">
+                {% if product.getImage() %}
+                <img src="{{ asset('uploads/images/' ~ product.getImage().getFile() ) }}" class="card-img-top" alt="{{ product.getName() }}">
                 {% else %}
                 <p>Aucune image principale</p>
                 {% endif %}

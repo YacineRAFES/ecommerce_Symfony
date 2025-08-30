@@ -75,12 +75,12 @@ class Product
 
     public function getImage(): ?images
     {
-        return $this->images;
+        return $this->image;
     }
 
-    public function setImage(?images $images): self
+    public function setImage(?images $image): self
     {
-        $this->image = $images;
+        $this->image = $image;
 
         return $this;
     }
