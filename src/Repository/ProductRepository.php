@@ -40,4 +40,15 @@ class ProductRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findAllProductsWithImageByCategory(int $categoryId): array
+    {
+        return $this->createQueryBuilder('p')
+            ->innerJoin('p.image', 'i')
+            ->addSelect('i')
+            ->where('p.category = :categoryId')
+            ->setParameter('categoryId', $categoryId)
+            ->getQuery()
+            ->getResult();
+    }
 }
