@@ -27,7 +27,7 @@ class Product
     private ?Images $image = null;
 
     #[ORM\ManyToOne(inversedBy: 'product')]
-    private ?category $category = null;
+    private ?Category $category = null;
 
     #[ORM\OneToOne(mappedBy: 'product', cascade: ['persist', 'remove'])]
     private ?Description $description = null;
@@ -73,24 +73,24 @@ class Product
         return $this;
     }
 
-    public function getImage(): ?images
+    public function getImage(): ?Images
     {
         return $this->image;
     }
 
-    public function setImage(?images $image): self
+    public function setImage(?Images $image): self
     {
         $this->image = $image;
 
         return $this;
     }
 
-    public function getCategory(): ?category
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
 
-    public function setCategory(?category $category): static
+    public function setCategory(?Category $category): static
     {
         $this->category = $category;
 

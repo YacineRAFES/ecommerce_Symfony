@@ -60,7 +60,6 @@ class AppFixtures extends Fixture
 
         // Créer les descriptions
         foreach ($products as $product) {
-
             $description = new Description();
             $description->setText("Le moniteur Samsung S22D400GAU est conçu pour répondre à tous vos besoins essentiels, 
                                     pour le travail ou le divertissement. Avec sa dalle IPS de 22 pouces avec résolution Full HD, 
@@ -68,9 +67,7 @@ class AppFixtures extends Fixture
                                     cet écran Samsung sera un compagnon de gaming fiable et abordable. 
                                     Son pied ergonomique apporte aussi un meilleur confort d'utilisation.")
                         ->setProduct($product);
-            
             $manager->persist($description);
-
         }
 
         $manager->flush();

@@ -5,24 +5,26 @@
 {% block body %}
     <div class="row">
         <div class="col-5">
-            <img src="{{ asset('uploads/images/' ~ product.getFile() ) }}" class="card-img-top" alt="{{ product.getName() }}">
+            <img src="{{ asset('uploads/images/' ~ product.getImage().getFile() ) }}" class="card-img-top" alt="{{ product.getName() }}">
         </div>
         <div class="col">
             <h3 class="m-3 text-uppercase">
                 {{ product.getName() }}
             </h3>
-            <!-- Description -->
-            {# <p class="m-3">
-                {{ product.getDescription() }}
-            </p> #}
+            <p class="m-3">
+                {{ product.getDescription().getText() }}
+            </p>
             <!-- Avis -->
             {# <p class="m-3">
                 <strong>Avis :</strong> {{ product.getRating() }} / 5
             </p> #}
-            <!-- Prix -->
-            <p class="fs-4">
-                {{ product.getPrice() | format_currency('EUR', {grouping_used:true}, 'fr') }}
-            </p>
+            <!-- Description -->
+            <div class="border rounded-3 bg-info-subtle text-white">
+                <!-- Prix -->
+                <p class="fs-4 fw-bolder m-2">
+                    {{ product.getPrice() | format_currency('EUR', {grouping_used:true}, 'fr') }}
+                </p>
+            </div>
             
         </div>
     </div>
